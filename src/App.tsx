@@ -321,7 +321,7 @@ const SocialMediaPortfolio = () => {
           <span className="text-gray-600 capitalize">
             {key.replace(/([A-Z])/g, " $1").trim()}:
           </span>
-          <span className="bold">
+          <span className="text-lg bold capitalize">
             {typeof value === 'string' || typeof value === 'number' ? value : null}
           </span> {/* Correzione qui */}
         </div>
