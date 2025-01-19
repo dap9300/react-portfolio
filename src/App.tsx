@@ -304,21 +304,31 @@ const SocialMediaPortfolio = () => {
                   <h2 className="text-2xl font-bold">Metriche</h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {Object.entries(project.metrics).map(
-                    ([category, metrics]) => (
-                      <div key={category} className="space-y-4">
-                        <h3 className="text-lg font-semibold capitalize">
-                          {category.replace(/([A-Z])/g, " $1").trim()}
-                        </h3>
-                        <div className="space-y-2">
-                          {Object.entries(metrics).map(([key, value]) => (
-                            <div key={key} className="flex justify-between">
-                              <span className="text-gray-600 capitalize">
-                                {key.replace(/([A-Z])/g, " $1").trim()}:
-                              </span>
-                              <span className="font-semibold">{value}</span>
-                            </div>
-                          ))}
+                  {Object.entries(project.metrics).map(([category, metrics]) => (
+  <div key={category} className="space-y-4">
+    <h3 className="text-lg font-semibold capitalize">
+      {category.replace(/([A-Z])/g, " $1").trim()}
+    </h3>
+    <div className="space-y-2">
+      {Object.entries(project.metrics).map(([category, metrics]) => (
+  <div key={category} className="space-y-4">
+    <h3 className="text-lg font-semibold capitalize">
+      {category.replace(/([A-Z])/g, " $1").trim()}
+    </h3>
+    <div className="space-y-2">
+      {Object.entries(metrics).map(([key, value]) => (
+        <div key={key} className="flex justify-between">
+          <span className="text-gray-600 capitalize">
+            {key.replace(/([A-Z])/g, " $1").trim()}:
+          </span>
+          <span className="font-semibold">
+            {typeof value === 'string' || typeof value === 'number' ? value : null}
+          </span> {/* Correzione qui */}
+        </div>
+      ))}
+    </div>
+  </div>
+))}
                         </div>
                       </div>
                     )
