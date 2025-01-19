@@ -310,6 +310,12 @@ const SocialMediaPortfolio = () => {
       {category.replace(/([A-Z])/g, " $1").trim()}
     </h3>
     <div className="space-y-2">
+      {Object.entries(project.metrics).map(([category, metrics]) => (
+  <div key={category} className="space-y-4">
+    <h3 className="text-lg font-semibold capitalize">
+      {category.replace(/([A-Z])/g, " $1").trim()}
+    </h3>
+    <div className="space-y-2">
       {Object.entries(metrics).map(([key, value]) => (
         <div key={key} className="flex justify-between">
           <span className="text-gray-600 capitalize">
@@ -361,6 +367,23 @@ const SocialMediaPortfolio = () => {
                         <span
                           key={i}
                           className="px-3 py-1 bg-gray-100 rounded-full"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+      )}
+    </div>
+  );
+};
+
+export default SocialMediaPortfolio;
+ay-100 rounded-full"
                         >
                           {skill}
                         </span>
