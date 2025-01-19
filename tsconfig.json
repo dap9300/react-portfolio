@@ -1,14 +1,19 @@
 {
-    "include": [
-        "./src/**/*"
-    ],
-    "compilerOptions": {
-        "strict": true,
-        "esModuleInterop": true,
-        "lib": [
-            "dom",
-            "es2015"
-        ],
-        "jsx": "react-jsx"
-    }
+  "include": ["./src/**/*"], // Include tutti i file nella cartella src
+  "compilerOptions": {
+    "strict": true, // Abilita tutte le opzioni di type checking strict
+    "esModuleInterop": true, // Permette l'interoperabilità con moduli CommonJS
+    "lib": ["dom", "dom.iterable", "esnext"], // Aggiunge supporto per DOM, iterabili e funzionalità ES moderne
+    "jsx": "react-jsx", // Supporto per JSX (React 17+)
+    "module": "esnext", // Usa moduli ES (import/export)
+    "moduleResolution": "node", // Risoluzione dei moduli in stile Node.js
+    "resolveJsonModule": true, // Permette di importare file JSON
+    "isolatedModules": true, // Garantisce che ogni file sia un modulo isolato
+    "noEmit": true, // Non emette file JavaScript (solo type checking)
+    "skipLibCheck": true, // Salta la verifica delle dichiarazioni di tipo delle librerie
+    "forceConsistentCasingInFileNames": true, // Impone la consistenza nel casing dei nomi dei file
+    "target": "es5", // Target per la compatibilità con browser più vecchi
+    "allowJs": true, // Permette di includere file JavaScript nel progetto
+    "noFallthroughCasesInSwitch": true // Impedisce casi di fallthrough negli switch
+  }
 }
