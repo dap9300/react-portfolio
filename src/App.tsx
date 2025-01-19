@@ -236,7 +236,7 @@ const SocialMediaPortfolio = () => {
                   <p className="text-lg">{project.overview.description}</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="bold mb-2">Obiettivi:</h4>
+                      <h4 className="text-2xl font-bold">Obiettivi:</h4>
                       <ul className="list-disc pl-5 space-y-2">
                         {project.overview.objectives.map((obj, i) => (
                           <li key={i}>{obj}</li>
@@ -244,7 +244,7 @@ const SocialMediaPortfolio = () => {
                       </ul>
                     </div>
                     <div>
-                      <h4 className="bold mb-2">Canali:</h4>
+                      <h4 className="text-2xl font-bold">Canali:</h4>
                       <div className="flex flex-wrap gap-2">
                         {project.overview.channels.map((channel, i) => (
                           <span
@@ -256,7 +256,7 @@ const SocialMediaPortfolio = () => {
                         ))}
                       </div>
                       <p className="mt-4">
-                        <span className="bold">Budget: </span>
+                        <span className="text-2xl font-bold">Budget: </span>
                         {project.overview.budget}
                       </p>
                     </div>
@@ -285,7 +285,7 @@ const SocialMediaPortfolio = () => {
                               alt={content.type}
                               className="w-full rounded-lg mb-2"
                             />
-                            <h4 className="bold">{content.type}</h4>
+                            <h4 className="text-2xl font-bold">{content.type}</h4>
                             <p className="text-sm text-gray-600">
                               {content.description}
                             </p>
