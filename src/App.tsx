@@ -236,7 +236,7 @@ const SocialMediaPortfolio = () => {
                   <p className="text-lg">{project.overview.description}</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold mb-2">Obiettivi:</h4>
+                      <h4 className="bold mb-2">Obiettivi:</h4>
                       <ul className="list-disc pl-5 space-y-2">
                         {project.overview.objectives.map((obj, i) => (
                           <li key={i}>{obj}</li>
@@ -244,7 +244,7 @@ const SocialMediaPortfolio = () => {
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-2">Canali:</h4>
+                      <h4 className="bold mb-2">Canali:</h4>
                       <div className="flex flex-wrap gap-2">
                         {project.overview.channels.map((channel, i) => (
                           <span
@@ -256,7 +256,7 @@ const SocialMediaPortfolio = () => {
                         ))}
                       </div>
                       <p className="mt-4">
-                        <span className="font-semibold">Budget: </span>
+                        <span className="bold">Budget: </span>
                         {project.overview.budget}
                       </p>
                     </div>
@@ -273,7 +273,7 @@ const SocialMediaPortfolio = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {project.campaigns.map((campaign, i) => (
                     <div key={i} className="space-y-4">
-                      <h3 className="text-xl font-semibold">
+                      <h3 className="text-xl bold">
                         {campaign.title}
                       </h3>
                       <p className="text-gray-600">{campaign.description}</p>
@@ -285,7 +285,7 @@ const SocialMediaPortfolio = () => {
                               alt={content.type}
                               className="w-full rounded-lg mb-2"
                             />
-                            <h4 className="font-semibold">{content.type}</h4>
+                            <h4 className="bold">{content.type}</h4>
                             <p className="text-sm text-gray-600">
                               {content.description}
                             </p>
@@ -306,13 +306,13 @@ const SocialMediaPortfolio = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {Object.entries(project.metrics).map(([category, metrics]) => (
   <div key={category} className="space-y-4">
-    <h3 className="text-lg font-semibold capitalize">
+    <h3 className="text-lg bold capitalize">
       {category.replace(/([A-Z])/g, " $1").trim()}
     </h3>
     <div className="space-y-2">
       {Object.entries(project.metrics).map(([category, metrics]) => (
   <div key={category} className="space-y-4">
-    <h3 className="text-lg font-semibold capitalize">
+    <h3 className="text-lg bold capitalize">
       {category.replace(/([A-Z])/g, " $1").trim()}
     </h3>
     <div className="space-y-2">
@@ -321,7 +321,7 @@ const SocialMediaPortfolio = () => {
           <span className="text-gray-600 capitalize">
             {key.replace(/([A-Z])/g, " $1").trim()}:
           </span>
-          <span className="font-semibold">
+          <span className="bold">
             {typeof value === 'string' || typeof value === 'number' ? value : null}
           </span> {/* Correzione qui */}
         </div>
@@ -344,7 +344,7 @@ const SocialMediaPortfolio = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-lg font-semibold mb-4">
+                    <h3 className="text-lg bold mb-4">
                       Tools Utilizzati
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -359,7 +359,7 @@ const SocialMediaPortfolio = () => {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-4">
+                    <h3 className="text-lg bold mb-4">
                       Competenze Specifiche
                     </h3>
                     <div className="flex flex-wrap gap-2">
