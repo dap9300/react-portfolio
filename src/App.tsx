@@ -1,10 +1,83 @@
-import React, { useState } from "react";
-import { BarChart2, Target, Users, Layout } from "lucide-react";
+import React, { useState, useEffect } from "react"; // Aggiunto useEffect
+import { BarChart2, Target, Users, Layout, X } from "lucide-react";
+
+// Definizione delle interfacce TypeScript
+interface Overview {
+  description: string;
+  objectives: string[];
+  channels: string[];
+  budget: string;
+}
+
+interface CampaignContent {
+  type: string;
+  description: string;
+  placeholder: string;
+  contentText?: string; // Nuovo campo per il contenuto personalizzato della campagna
+}
+
+interface Campaign {
+  title: string;
+  type: string;
+  description: string;
+  content: CampaignContent[];
+}
+
+interface Metrics {
+  [key: string]: {
+    [key: string]: string | number;
+  };
+}
+
+interface Skills {
+  tools: string[];
+  expertise: string[];
+}
+
+interface Project {
+  id: string;
+  title: string;
+  period: string;
+  overview: Overview;
+  campaigns: Campaign[];
+  metrics: Metrics;
+  skills: Skills;
+  modalImage: string; // Campo per l'immagine della modale
+  modalText: string; // Campo per il testo della modale
+}
 
 const SocialMediaPortfolio = () => {
-  const [activeProject, setActiveProject] = useState("ecommerce-fashion");
+  const [activeProject, setActiveProject] =
+    useState<string>("ecommerce-fashion");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedOverview, setSelectedOverview] = useState<Overview | null>(
+    null
+  );
 
-  const projects = [
+  // Funzione per chiudere il modale
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedOverview(null);
+  };
+
+  // Gestione del tasto Esc
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    // Aggiungi l'event listener
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Rimuovi l'event listener quando il componente viene smontato
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []); // L'array vuoto [] garantisce che l'effetto venga eseguito solo al montaggio e smontaggio
+
+  const projects: Project[] = [
     {
       id: "ecommerce-fashion",
       title: "E-commerce Fashion Brand",
@@ -30,11 +103,19 @@ const SocialMediaPortfolio = () => {
               type: "Video Storytelling",
               description: "Serie di video sul processo produttivo sostenibile",
               placeholder: "400/300",
+              contentText: `
+                <p>Contenuto personalizzato per la campagna "Lancio Collezione Primavera".</p>
+                <img src="/spring-collection.jpg" alt="Spring Collection" className="w-full rounded-lg mb-4" />
+              `,
             },
             {
               type: "Influencer Content",
               description: "Collaborazioni con 10 micro-influencer",
               placeholder: "400/300",
+              contentText: `
+                <p>Contenuto personalizzato per la collaborazione con influencer.</p>
+                <img src="/influencer-collab.jpg" alt="Influencer Collaboration" className="w-full rounded-lg mb-4" />
+              `,
             },
           ],
         },
@@ -47,6 +128,10 @@ const SocialMediaPortfolio = () => {
               type: "Challenge Guidelines",
               description: "Regole e esempi per la partecipazione",
               placeholder: "400/300",
+              contentText: `
+                <p>Contenuto personalizzato per la campagna "Community Challenge".</p>
+                <img src="/community-challenge.jpg" alt="Community Challenge" className="w-full rounded-lg mb-4" />
+              `,
             },
           ],
         },
@@ -71,6 +156,13 @@ const SocialMediaPortfolio = () => {
         tools: ["Shopify", "Meta Ads", "Later", "Canva Pro"],
         expertise: ["E-commerce", "Fashion Marketing", "Influencer Management"],
       },
+      modalImage: "/ecommerce-fashion.jpg", // Immagine personalizzata per la modale
+      modalText: `
+        <img src="/analytics_maga3.png" alt="Analytics Image" className="w-full rounded-lg mb-4" />
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ipsum orci, blandit eget augue in, malesuada scelerisque velit. Fusce venenatis nisl dapibus, consequat arcu ac, sollicitudin metus. Quisque dapibus egestas velit nec molestie. Donec dignissim commodo tellus. Duis lorem neque, auctor at orci pulvinar, finibus tincidunt nisi. Sed vitae ipsum elit. Nunc blandit eros quis massa pellentesque, et eleifend mi sollicitudin. Nam facilisis mattis mauris, at sollicitudin nisl varius vel. Morbi ultrices ut neque a placerat. Quisque quis orci urna. Praesent at eros risus. Nunc placerat, turpis sed egestas consequat, diam justo pellentesque lorem, ut tincidunt enim nisl sed felis. Quisque et erat at nunc ultricies porta. Vivamus id ante luctus urna vestibulum porta eu a nisl.</p>
+        <img src="/analytics_maga3.png" alt="Analytics Image" className="w-full rounded-lg mb-4" />
+        <p>Nam facilisis mattis mauris, at sollicitudin nisl varius vel. Morbi ultrices ut neque a placerat. Quisque quis orci urna. Praesent at eros risus. Nunc placerat, turpis sed egestas consequat, diam justo pellentesque lorem, ut tincidunt enim nisl sed felis. Quisque et erat at nunc ultricies porta. Vivamus id ante luctus urna vestibulum porta eu a nisl.</p>
+      `, // Testo personalizzato per il modale
     },
     {
       id: "food-beverage",
@@ -97,11 +189,19 @@ const SocialMediaPortfolio = () => {
               type: "Chef Stories",
               description: "Interviste video agli chef",
               placeholder: "400/300",
+              contentText: `
+                <p>Contenuto personalizzato per la campagna "Local Food Stories".</p>
+                <img src="/chef-stories.jpg" alt="Chef Stories" className="w-full rounded-lg mb-4" />
+              `,
             },
             {
               type: "Food Photography",
               description: "Servizi fotografici piatti signature",
               placeholder: "400/300",
+              contentText: `
+                <p>Contenuto personalizzato per la fotografia dei piatti.</p>
+                <img src="/food-photography.jpg" alt="Food Photography" className="w-full rounded-lg mb-4" />
+              `,
             },
           ],
         },
@@ -114,6 +214,10 @@ const SocialMediaPortfolio = () => {
               type: "Promo Assets",
               description: "Materiali promozionali per la campagna",
               placeholder: "400/300",
+              contentText: `
+                <p>Contenuto personalizzato per la campagna "Restaurant Week".</p>
+                <img src="/promo-assets.jpg" alt="Promo Assets" className="w-full rounded-lg mb-4" />
+              `,
             },
           ],
         },
@@ -138,6 +242,8 @@ const SocialMediaPortfolio = () => {
         tools: ["HubSpot", "OpenTable", "Hootsuite", "Adobe Lightroom"],
         expertise: ["Local Marketing", "F&B Industry", "Customer Experience"],
       },
+      modalImage: "/food-beverage.jpg", // Immagine personalizzata per la modale
+      modalText: "Testo personalizzato per il progetto Catena Ristoranti F&B.", // Testo personalizzato
     },
     {
       id: "tech-startup",
@@ -163,11 +269,19 @@ const SocialMediaPortfolio = () => {
               type: "Whitepaper",
               description: "Report di settore con dati originali",
               placeholder: "400/300",
+              contentText: `
+                <p>Contenuto personalizzato per la campagna "Tech Insights Series".</p>
+                <img src="/whitepaper.jpg" alt="Whitepaper" className="w-full rounded-lg mb-4" />
+              `,
             },
             {
               type: "Expert Interviews",
               description: "Video interviste con esperti",
               placeholder: "400/300",
+              contentText: `
+                <p>Contenuto personalizzato per le interviste con esperti.</p>
+                <img src="/expert-interviews.jpg" alt="Expert Interviews" className="w-full rounded-lg mb-4" />
+              `,
             },
           ],
         },
@@ -192,8 +306,15 @@ const SocialMediaPortfolio = () => {
         tools: ["LinkedIn Sales Navigator", "Salesforce", "Zoom", "Notion"],
         expertise: ["B2B Marketing", "Tech Industry", "Lead Generation"],
       },
+      modalImage: "/tech-startup.jpg", // Immagine personalizzata per la modale
+      modalText: "Testo personalizzato per il progetto Tech Startup B2B.", // Testo personalizzato
     },
   ];
+
+  const handleOverviewClick = (overview: Overview) => {
+    setSelectedOverview(overview);
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-8 bg-white">
@@ -206,7 +327,7 @@ const SocialMediaPortfolio = () => {
 
       {/* Project Selector */}
       <div className="flex gap-2 border-b">
-        {projects.map((project) => (
+        {projects.map((project: Project) => (
           <button
             key={project.id}
             onClick={() => setActiveProject(project.id)}
@@ -223,37 +344,47 @@ const SocialMediaPortfolio = () => {
 
       {/* Project Content */}
       {projects.map(
-        (project) =>
+        (project: Project) =>
           project.id === activeProject && (
             <div key={project.id} className="grid gap-6">
               {/* Overview */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center gap-2 mb-4">
+              <div
+                className="bg-white rounded-lg shadow p-6 cursor-pointer relative overflow-hidden transition-all duration-300 hover:shadow-lg"
+                onClick={() => handleOverviewClick(project.overview)}
+              >
+                {/* Effetto hover con gradiente */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+
+                <div className="flex items-center gap-2 mb-4 relative z-10">
                   <Target className="h-6 w-6" />
                   <h2 className="text-2xl font-bold">Overview</h2>
                 </div>
-                <div className="space-y-6">
+                <div className="space-y-6 relative z-10">
                   <p className="text-lg">{project.overview.description}</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="text-2xl font-bold">Obiettivi:</h4>
                       <ul className="list-disc pl-5 space-y-2">
-                        {project.overview.objectives.map((obj, i) => (
-                          <li key={i}>{obj}</li>
-                        ))}
+                        {project.overview.objectives.map(
+                          (obj: string, i: number) => (
+                            <li key={i}>{obj}</li>
+                          )
+                        )}
                       </ul>
                     </div>
                     <div>
                       <h4 className="text-2xl font-bold">Canali:</h4>
                       <div className="flex flex-wrap gap-2">
-                        {project.overview.channels.map((channel, i) => (
-                          <span
-                            key={i}
-                            className="px-3 py-1 bg-gray-100 rounded-full"
-                          >
-                            {channel}
-                          </span>
-                        ))}
+                        {project.overview.channels.map(
+                          (channel: string, i: number) => (
+                            <span
+                              key={i}
+                              className="px-3 py-1 bg-gray-100 rounded-full"
+                            >
+                              {channel}
+                            </span>
+                          )
+                        )}
                       </div>
                       <p className="mt-4">
                         <span className="text-2xl font-bold">Budget: </span>
@@ -271,26 +402,37 @@ const SocialMediaPortfolio = () => {
                   <h2 className="text-2xl font-bold">Campagne</h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {project.campaigns.map((campaign, i) => (
+                  {project.campaigns.map((campaign: Campaign, i: number) => (
                     <div key={i} className="space-y-4">
-                      <h3 className="text-xl bold">
-                        {campaign.title}
-                      </h3>
+                      <h3 className="text-xl bold">{campaign.title}</h3>
                       <p className="text-gray-600">{campaign.description}</p>
                       <div className="grid grid-cols-1 gap-4">
-                        {campaign.content.map((content, j) => (
-                          <div key={j}>
-                            <img
-                              src={`/api/placeholder/${content.placeholder}`}
-                              alt={content.type}
-                              className="w-full rounded-lg mb-2"
-                            />
-                            <h4 className="text-2xl font-bold">{content.type}</h4>
-                            <p className="text-sm text-gray-600">
-                              {content.description}
-                            </p>
-                          </div>
-                        ))}
+                        {campaign.content.map(
+                          (content: CampaignContent, j: number) => (
+                            <div key={j}>
+                              <img
+                                src={`/api/placeholder/${content.placeholder}`}
+                                alt={content.type}
+                                className="w-full rounded-lg mb-2"
+                              />
+                              <h4 className="text-2xl font-bold">
+                                {content.type}
+                              </h4>
+                              <p className="text-sm text-gray-600">
+                                {content.description}
+                              </p>
+                              {/* Contenuto personalizzato della campagna */}
+                              {content.contentText && (
+                                <div
+                                  className="text-gray-600"
+                                  dangerouslySetInnerHTML={{
+                                    __html: content.contentText,
+                                  }}
+                                />
+                              )}
+                            </div>
+                          )
+                        )}
                       </div>
                     </div>
                   ))}
@@ -304,31 +446,23 @@ const SocialMediaPortfolio = () => {
                   <h2 className="text-2xl font-bold">Metriche</h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {Object.entries(project.metrics).map(([category, metrics]) => (
-  <div key={category} className="space-y-4">
-    <h3 className="text-lg bold capitalize">
-      {category.replace(/([A-Z])/g, " $1").trim()}
-    </h3>
-    <div className="space-y-2">
-      {Object.entries(project.metrics).map(([category, metrics]) => (
-  <div key={category} className="space-y-4">
-    <h3 className="text-lg bold capitalize">
-      {category.replace(/([A-Z])/g, " $1").trim()}
-    </h3>
-    <div className="space-y-2">
-      {Object.entries(metrics).map(([key, value]) => (
-        <div key={key} className="flex justify-between">
-          <span className="text-gray-600 capitalize">
-            {key.replace(/([A-Z])/g, " $1").trim()}:
-          </span>
-          <span className="text-lg bold capitalize">
-            {typeof value === 'string' || typeof value === 'number' ? value : null}
-          </span> {/* Correzione qui */}
-        </div>
-      ))}
-    </div>
-  </div>
-))}
+                  {Object.entries(project.metrics).map(
+                    ([category, metrics]) => (
+                      <div key={category} className="space-y-4">
+                        <h3 className="text-lg bold capitalize">
+                          {category.replace(/([A-Z])/g, " $1").trim()}
+                        </h3>
+                        <div className="space-y-2">
+                          {Object.entries(metrics).map(([key, value]) => (
+                            <div key={key} className="flex justify-between">
+                              <span className="text-gray-600 capitalize">
+                                {key.replace(/([A-Z])/g, " $1").trim()}:
+                              </span>
+                              <span className="text-lg bold capitalize">
+                                {value}
+                              </span>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     )
@@ -344,11 +478,9 @@ const SocialMediaPortfolio = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-lg bold mb-4">
-                      Tools Utilizzati
-                    </h3>
+                    <h3 className="text-lg bold mb-4">Tools Utilizzati</h3>
                     <div className="flex flex-wrap gap-2">
-                      {project.skills.tools.map((tool, i) => (
+                      {project.skills.tools.map((tool: string, i: number) => (
                         <span
                           key={i}
                           className="px-3 py-1 bg-gray-100 rounded-full"
@@ -359,18 +491,18 @@ const SocialMediaPortfolio = () => {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-lg bold mb-4">
-                      Competenze Specifiche
-                    </h3>
+                    <h3 className="text-lg bold mb-4">Competenze Specifiche</h3>
                     <div className="flex flex-wrap gap-2">
-                      {project.skills.expertise.map((skill, i) => (
-                        <span
-                          key={i}
-                          className="px-3 py-1 bg-gray-100 rounded-full"
-                        >
-                          {skill}
-                        </span>
-                      ))}
+                      {project.skills.expertise.map(
+                        (skill: string, i: number) => (
+                          <span
+                            key={i}
+                            className="px-3 py-1 bg-gray-100 rounded-full"
+                          >
+                            {skill}
+                          </span>
+                        )
+                      )}
                     </div>
                   </div>
                 </div>
@@ -378,22 +510,74 @@ const SocialMediaPortfolio = () => {
             </div>
           )
       )}
-    </div>
-  );
-};
 
-export default SocialMediaPortfolio;
-ay-100 rounded-full"
+      {/* Modal */}
+      {isModalOpen && selectedOverview && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 overflow-y-auto z-50 backdrop-blur-sm">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-[90vw] max-w-[800px] min-w-[300px] relative max-h-[90vh] overflow-y-auto">
+            {/* Pulsante di chiusura in alto a destra */}
+            <div className="sticky top-0 right-0 w-full flex justify-end z-20">
+              <button
+                onClick={closeModal}
+                className="bg-white/90 hover:bg-white rounded-full p-2 shadow-md transition-all duration-300 hover:scale-105"
+              >
+                <X className="h-6 w-6 text-gray-600 hover:text-gray-900" />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">Overview</h2>
+              <p className="text-lg">{selectedOverview.description}</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-2xl font-bold">Obiettivi:</h4>
+                  <ul className="list-disc pl-5 space-y-2">
+                    {selectedOverview.objectives.map(
+                      (obj: string, i: number) => (
+                        <li key={i}>{obj}</li>
+                      )
+                    )}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-2xl font-bold">Canali:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedOverview.channels.map(
+                      (channel: string, i: number) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 bg-gray-100 rounded-full"
                         >
-                          {skill}
+                          {channel}
                         </span>
-                      ))}
-                    </div>
+                      )
+                    )}
                   </div>
+                  <p className="mt-4">
+                    <span className="text-2xl font-bold">Budget: </span>
+                    {selectedOverview.budget}
+                  </p>
                 </div>
               </div>
+              {/* Immagine e testo personalizzati per il modale */}
+              <div className="mt-6">
+                <img
+                  src={projects.find((p) => p.id === activeProject)?.modalImage}
+                  alt="Project Image"
+                  className="w-full rounded-lg mb-4"
+                />
+                <p
+                  className="text-gray-600"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      projects.find((p) => p.id === activeProject)?.modalText ||
+                      "",
+                  }}
+                />
+              </div>
             </div>
-          )
+          </div>
+        </div>
       )}
     </div>
   );
